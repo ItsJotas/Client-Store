@@ -1,4 +1,4 @@
-package com.example.client.service.exception;
+package com.example.clientStore.service.exception;
 
 public class ObjectNotFoundException extends RuntimeException{
     public ObjectNotFoundException(String msg){

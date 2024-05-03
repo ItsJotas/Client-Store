@@ -1,4 +1,4 @@
-package com.example.client.controller.exception;
+package com.example.clientStore.controller.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

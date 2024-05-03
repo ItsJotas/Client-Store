@@ -1,4 +1,4 @@
-package com.example.client.utils;
+package com.example.clientStore.utils;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;

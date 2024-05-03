@@ -1,4 +1,4 @@
-package com.example.client.service.exception;
+package com.example.clientStore.service.exception;
 
 public class BadRequestException extends RuntimeException{
     public BadRequestException(String msg){

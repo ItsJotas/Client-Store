@@ -1,4 +1,4 @@
-package com.example.client.config;
+package com.example.clientStore.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

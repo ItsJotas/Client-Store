@@ -1,7 +1,8 @@
-package com.example.client.controller.exception;
+package com.example.clientStore.controller.exception;
 
-import com.example.client.service.exception.BadRequestException;
-import com.example.client.service.exception.ObjectNotFoundException;
+import com.example.clientStore.service.exception.BadRequestException;
+import com.example.clientStore.service.exception.ObjectNotFoundException;
+import com.example.clientStore.utils.DateUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +11,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.example.client.utils.DateUtils.getCurrentTime;
-
 
 @ControllerAdvice
 public class ResourceExceptionHandle {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
-        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation errors", getCurrentTime());
+        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Validation errors", DateUtils.getCurrentTime());
         for(FieldError x : e.getBindingResult().getFieldErrors()){
             error.addError(x.getField(), x.getDefaultMessage());
         }
@@ -27,13 +26,13 @@ public class ResourceExceptionHandle {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
-        StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), getCurrentTime());
+        StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), DateUtils.getCurrentTime());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<StandardError> badRequest(BadRequestException e, HttpServletRequest request) {
-        StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), getCurrentTime());
+        StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), DateUtils.getCurrentTime());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
