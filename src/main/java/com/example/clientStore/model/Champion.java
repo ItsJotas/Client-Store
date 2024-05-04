@@ -1,5 +1,6 @@
 package com.example.clientStore.model;
 
+import com.example.clientStore.model.enums.ChampionRoleEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 public class Champion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -23,7 +24,7 @@ public class Champion {
     private String title;
 
     @Column(nullable = false)
-    private String role;
+    private ChampionRoleEnum role;
 
     @Column(nullable = false)
     private Integer bePrice;
@@ -34,7 +35,7 @@ public class Champion {
     @Column(nullable = false)
     private LocalDate releaseDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String imageUrl;
 
     private Integer discount;

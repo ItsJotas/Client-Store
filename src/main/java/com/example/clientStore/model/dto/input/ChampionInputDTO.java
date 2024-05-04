@@ -1,5 +1,6 @@
 package com.example.clientStore.model.dto.input;
 
+import com.example.clientStore.model.enums.ChampionRoleEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,19 +25,15 @@ public class ChampionInputDTO {
     private String title;
 
     @NotNull(message = "The Role field is required!")
-    //TODO: this will be a ENUM
-    private String role;
+    private Integer role;
 
     @NotNull(message = "The Blue Essence Price field is required!")
-    @NotBlank(message = "The Blue Essence Price cannot be empty!")
     private Integer bePrice;
 
     @NotNull(message = "The RpPrice field is required!")
-    @NotBlank(message = "The RpPrice cannot be empty!")
     private Integer rpPrice;
 
     @NotNull(message = "The Release Date field is required!")
-    @NotBlank(message = "The Release Date cannot be empty!")
     private LocalDate releaseDate;
 
     @NotNull(message = "The Image URL field is required!")
