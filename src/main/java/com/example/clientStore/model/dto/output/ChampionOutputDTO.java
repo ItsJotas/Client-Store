@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,7 +17,8 @@ public class ChampionOutputDTO {
     private Long id;
     private String name;
     private String title;
-    private ChampionRoleEnum role;
+    //TODO: Make an array of strings to show the roles
+    private List<ChampionRoleEnum> roles;
     private Integer bePrice;
     private Integer rpPrice;
     private Integer discount;

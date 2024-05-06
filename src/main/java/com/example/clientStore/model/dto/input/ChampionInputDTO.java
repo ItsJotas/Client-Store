@@ -1,6 +1,5 @@
 package com.example.clientStore.model.dto.input;
 
-import com.example.clientStore.model.enums.ChampionRoleEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,7 +25,7 @@ public class ChampionInputDTO {
     private String title;
 
     @NotNull(message = "The Role field is required!")
-    private Integer role;
+    private List<Integer> roles;
 
     @NotNull(message = "The Blue Essence Price field is required!")
     private Integer bePrice;

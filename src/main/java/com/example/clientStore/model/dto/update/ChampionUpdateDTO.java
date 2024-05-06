@@ -1,10 +1,11 @@
 package com.example.clientStore.model.dto.update;
 
-import com.example.clientStore.model.enums.ChampionRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ public class ChampionUpdateDTO {
 
     private String name;
     private String title;
-    private Integer role;
+    private List<Integer> roles;
     private Integer bePrice;
     private Integer rpPrice;
     private Integer discount;

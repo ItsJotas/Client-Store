@@ -2,12 +2,14 @@ package com.example.clientStore.service;
 
 import com.example.clientStore.model.Champion;
 import com.example.clientStore.model.dto.input.ChampionInputDTO;
+import com.example.clientStore.model.enums.ChampionRoleEnum;
 import com.example.clientStore.repository.ChampionRepository;
 import com.example.clientStore.service.exception.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.example.clientStore.model.enums.ChampionRoleEnum.getChampionRoleEnum;
@@ -24,15 +26,21 @@ public class ChampionService {
     public Champion saveChampion(ChampionInputDTO championInputDTO) {
         Champion champion = modelMapper.map(championInputDTO, Champion.class);
 
-        //TODO: One champion can have more than one role
-        champion.setRole(getChampionRoleEnum(championInputDTO.getRole()));
-
         findChampionByName(champion.getId(), champion.getName());
         findChampionByTitle(champion.getId(), champion.getTitle());
         findChampionByImageUrl(champion.getId(), champion.getImageUrl());
 
+        //TODO: this is saving a null value
+        champion.getRoles().addAll(0, getChampionRoleEnum(championInputDTO.getRoles()));
+
         champion = championRepository.save(champion);
         return champion;
+    }
+
+    //TODO: make this a page
+    public List<Champion> getAllChampions(){
+        List<Champion> champions = championRepository.findAll();
+        return champions;
     }
 
     private void findChampionByName(Long id, String name){
