@@ -2,11 +2,14 @@ package com.example.clientStore.service;
 
 import com.example.clientStore.model.Champion;
 import com.example.clientStore.model.dto.input.ChampionInputDTO;
-import com.example.clientStore.model.enums.ChampionRoleEnum;
+import com.example.clientStore.model.dto.output.ChampionOutputDTO;
 import com.example.clientStore.repository.ChampionRepository;
 import com.example.clientStore.service.exception.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +33,8 @@ public class ChampionService {
         findChampionByTitle(champion.getId(), champion.getTitle());
         findChampionByImageUrl(champion.getId(), champion.getImageUrl());
 
+        //TODO: exception: a champion price cannot be 0
+
         //TODO: this is saving a null value
         champion.getRoles().addAll(0, getChampionRoleEnum(championInputDTO.getRoles()));
 
@@ -37,10 +42,17 @@ public class ChampionService {
         return champion;
     }
 
-    //TODO: make this a page
-    public List<Champion> getAllChampions(){
-        List<Champion> champions = championRepository.findAll();
-        return champions;
+    public Page<ChampionOutputDTO> getAllChampions(Integer page, Integer size, String orderBy, String sortBy, String name) {
+
+        Sort sort = orderBy.equals("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        PageRequest pageable = PageRequest.of(page, size, sort);
+
+        //TODO: filter by role
+
+        Page<Champion> champions = championRepository.findAllFilter(pageable, name);
+        Page<ChampionOutputDTO> championOutputDTOs = champions.map(c -> modelMapper.map(c, ChampionOutputDTO.class));
+
+        return championOutputDTOs;
     }
 
     private void findChampionByName(Long id, String name){
@@ -63,4 +75,6 @@ public class ChampionService {
             throw new BadRequestException("This Champion image is already in use!");
         }
     }
+
+
 }
